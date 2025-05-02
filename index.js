@@ -8,7 +8,7 @@ import { Server } from 'socket.io';
 import { Redis } from 'ioredis';
 
 const app=express();
-const PORT=9000;
+const PORT=process.env.PORT || 9000;
 const server=http.createServer(app);
 
 app.use(express.json());
@@ -29,8 +29,9 @@ const subscriber=new Redis(process.env.upstash_redis);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: 'http://localhost:3000',
     methods: ['GET','POST','OPTIONS'],
+    allowedHeaders: ['Content-Type'],
     credentials: true
   },
 });   
@@ -131,7 +132,6 @@ app.post('/upload',(req,res)=>{
 
 })
 
-app.listen(PORT,()=>{
-    console.log(`Api server is running on ${PORT}`)
+server.listen(PORT,()=>{
+  console.log('Server is running on PORT:',PORT);
 })
-
