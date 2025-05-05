@@ -123,6 +123,7 @@ app.post('/project',async (req,res)=>{
 })
 
 app.get('/test',(req,res)=>{
+  res.json({message:"this is working"})
   console.log('This is working');
 })
 
