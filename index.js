@@ -127,6 +127,10 @@ app.get('/test',(req,res)=>{
   console.log('This is working');
 })
 
+app.get('/',(req,res)=>{
+  res.json({message:"Hey "})
+})
+
 app.post('/upload',(req,res)=>{
   console.log('you are here');
   res.json({message:"hey you are in /test"})
