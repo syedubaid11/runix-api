@@ -9,6 +9,7 @@ import { Redis } from 'ioredis';
 
 const app=express();
 const PORT=process.env.PORT || 9000;
+const ws_port=process.env.PORT || 9001;
 const server=http.createServer(app);
 
 app.use(express.json());
@@ -27,14 +28,10 @@ app.options(/.*/, cors({
 
 const subscriber=new Redis(process.env.upstash_redis);
 
-const io = new Server(server, {
-  cors: {
-    origin: 'http://localhost:3000',
-    methods: ['GET','POST','OPTIONS'],
-    allowedHeaders: ['Content-Type'],
-    credentials: true
-  },
-});   
+const io=new Server(server,()=>{
+  console.log(`Socket server is running on PORT : ${ws_port}`)
+})
+
 
 io.on('connection',(socket)=>{
   //subscribing to logs
@@ -127,16 +124,12 @@ app.get('/test',(req,res)=>{
   console.log('This is working');
 })
 
-app.get('/',(req,res)=>{
-  res.json({message:"Hey "})
-})
-
-app.post('/upload',(req,res)=>{
-  console.log('you are here');
-  res.json({message:"hey you are in /test"})
-
-})
-
-server.listen(PORT,()=>{
+app.listen(PORT,()=>{  //api server
   console.log('Server is running on PORT:',PORT);
 })
+
+server.listen(ws_port,()=>{
+  console.log('Websocket running on PORT:',ws_port)
+})
+
+
