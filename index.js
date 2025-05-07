@@ -26,10 +26,7 @@ app.options(/.*/, cors({
   credentials: true
 }));
 
-// const subscriber=new Redis(process.env.upstash_redis);
-// if(subscriber){
-//   console.log('connectin is here')
-// }
+const subscriber=new Redis(process.env.upstash_redis);
 
 const io=new Server(server,()=>{
   console.log(`Socket server is running on PORT : ${ws_port}`)
