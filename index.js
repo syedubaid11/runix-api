@@ -62,6 +62,7 @@ export const uploadSchema=z.object({
 
 
 const client=new ECSClient({
+    region:"ap-south-1",
     credentials:{
         accessKeyId:process.env.accessKeyId,
         secretAccessKey:process.env.secretAccessKey
