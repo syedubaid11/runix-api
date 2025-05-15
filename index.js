@@ -14,14 +14,14 @@ const server=http.createServer(app);
 
 app.use(express.json());
 app.use(cors({
-  origin:'http://localhost:3000',
+  origin:'https://runix-frontend.vercel.app/',
   methods:['POST','OPTIONS','GET'],
   credentials:true,
 }))
 
 //pre flight requests cors config
 app.options(/.*/, cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://runix-frontend.vercel.app/',
   methods: ['POST','OPTIONS','GET'],
   credentials: true
 }));
